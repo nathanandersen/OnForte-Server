@@ -46,21 +46,21 @@ function handleError(res,reason,message,code) {
   console.log("ERROR:" + reason);
   res.status(code || 500).json({"error": message});
 }
-function generateRandomPlaylistId() {
-  let _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
-  let _base36chars = _base36_chars_string.split("")
+/*function generateRandomPlaylistId() {
+  var _base36chars_string = "0123456789abcdefghijklmnopqrstuvwxyz"
+  var _base36chars = _base36_chars_string.split("")
 //        let _base36chars = Array(_base36chars_string.characters)
   var uniqueId = "";
   for (i=0; i<6; i++)
     uniqueId = uniqueId + _base36chars[Math.random()*36]
 
-/*  for _ in 1...6 {
+  for _ in 1...6 {
             let random = Int(arc4random_uniform(36))
             uniqueId = uniqueId + String(_base36chars[random])
-        }*/
+        }
     return uniqueId;
-//        return uniqueId;
-}
+}*/
+
 /*
 * "/playlists"
 * GET: finds all playlists
