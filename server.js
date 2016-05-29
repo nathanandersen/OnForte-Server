@@ -32,36 +32,45 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   });
 });
 
-// PLAYLISTS API ROUTES BELOW
-/*
-* A playlist looks like...
-* {
-* "_id": <ObjectId>
-* ... flesh this out ....
-* }
-*/
-
 // Generic error handler used by all endpoints.
 function handleError(res,reason,message,code) {
   console.log("ERROR:" + reason);
   res.status(code || 500).json({"error": message});
 }
 
+// PLAYLISTS API ROUTES BELOW
 /*
 * "/playlists"
 * GET: finds all playlists
 * POST: creates a new playlist
 */
 app.get("/playlists",function(req,res) {
+  db.collection(PLAYLISTS_COLLECTION).find({}).toArray(function(err,docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get playlists");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
 });
+
 app.post("/playlists",function(req,res) {
+  /*
+  * The user must provide five fields
+  * name
+  * playlistId
+  *
+  * coming:
+  * hostIsLoggedInToSpotify (default = false)
+  * hostIsLoggedInToSoundcloud (default = true)
+  * hostIsLoggedInToAppleMusic (default = true)
+  */
   var newPlaylist = req.body;
+  newPlaylist.createDate = new Date();
 
   if (!(req.body.name && req.body.playlistId)) {
     handleError(res, "Invalid user input","Must provide a playlist title and ID",400);
   }
-
-  newPlaylist.createDate = new Date();
 
   db.collection(PLAYLISTS_COLLECTION).insertOne(newPlaylist, function(err,doc) {
     if (err) {
@@ -70,10 +79,6 @@ app.post("/playlists",function(req,res) {
       res.status(201).json(doc.ops[0]);
     }
   });
-
-//  newPlaylist.isLoggedInToSpotify = false;
-//  newPlaylist.isLoggedInToSoundcloud = true;
-//  newPlaylist.isLoggedInToAppleMusic = true;
 
 });
 
@@ -85,8 +90,34 @@ app.post("/playlists",function(req,res) {
 */
 
 app.get("/playlists/:id",function(req,res) {
+  db.collection(PLAYLISTS_COLLECTION).findOne({_id: new ObjectID(req.params.id)}, function(err,doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get playlist");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
 });
+
 app.post("/playlists/_id",function(req,res) {
+  var updateDoc = req.body;
+  delete updateDoc._id;
+
+  db.collection(PLAYLISTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err,doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to update playlist");
+    } else {
+      res.status(204).end();
+    }
+  });
 });
+
 app.delete("/playlists/_id",function(req,res) {
+  db.collection(PLAYLISTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err,result) {
+    if (err) {
+      handleError(res,err.message, "Failed to delete playlist");
+    } else {
+      res.status(204).end();
+    }
+  });
 });
