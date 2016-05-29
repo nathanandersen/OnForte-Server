@@ -121,3 +121,16 @@ app.delete("/playlists/_id",function(req,res) {
     }
   });
 });
+
+// FETCHING PLAYLIST SONGS API ROUTES BELOW
+app.get("/playlistsongs/:id",function(req,res) {
+  db.collection(SONGS_COLLECTION).find({playlistId: req.params.id}),function(err,docs) {
+    if (err) {
+      handleError(res,err.message, "Failed to find songs for playlist");
+    } else {
+        res.status(200).json(docs);
+    }
+  }
+});
+
+// SONGS API ROUTES BELOW
