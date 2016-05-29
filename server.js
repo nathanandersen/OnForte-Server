@@ -99,7 +99,7 @@ app.get("/playlists/:id",function(req,res) {
   });
 });
 
-app.post("/playlists/_id",function(req,res) {
+app.put("/playlists/:id",function(req,res) {
   var updateDoc = req.body;
   delete updateDoc._id;
 
@@ -112,7 +112,7 @@ app.post("/playlists/_id",function(req,res) {
   });
 });
 
-app.delete("/playlists/_id",function(req,res) {
+app.delete("/playlists/:id",function(req,res) {
   db.collection(PLAYLISTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err,result) {
     if (err) {
       handleError(res,err.message, "Failed to delete playlist");
