@@ -114,11 +114,11 @@ app.delete("/playlists/:id",function(req,res) {
 
 // FETCH PLAYLIST BY PLAYLISTID
 app.get("/playlistid/:id",function(req,res) {
-  db.collection(PLAYLISTS_COLLECTION).find({playlistId: req.params.id}).toArray(function(err,docs) {
+  db.collection(PLAYLISTS).findOne({playlistId: req.params.id}).toArray(function(err,doc) {
     if (err) {
-      handleError(res, err.message, "Failed to get playlist info");
+      handleError(res, err.message, "Failed to get songs for playlist");
     } else {
-      res.status(200).json(docs);
+      res.status(200).json(doc);
     }
   });
 });
@@ -129,7 +129,7 @@ app.get("/playlistsongs/:id",function(req,res) {
     if (err) {
       handleError(res, err.message, "Failed to get songs for playlist");
     } else {
-      res.status(200).json(docs[0]);
+      res.status(200).json(docs);
     }
   });
 });
