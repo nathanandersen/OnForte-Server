@@ -129,7 +129,7 @@ app.get("/playlistsongs/:id",function(req,res) {
     if (err) {
       handleError(res, err.message, "Failed to get songs for playlist");
     } else {
-      res.status(200).json(docs);
+      res.status(200).json(docs[0]);
     }
   });
 });
