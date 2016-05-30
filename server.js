@@ -202,7 +202,7 @@ app.delete("/songs/:id",function(req,res) {
 * "/upvote/:id"
 *
 */
-app.post("/upvote/:id",function(req,res) {
+app.post("/upvote/",function(req,res) {
   db.collection(SONGS_COLLECTION).updateOne(
     {_id: new ObjectID(req.params.id)},
     {$inc: {"score":1}},
