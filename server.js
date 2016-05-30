@@ -174,16 +174,21 @@ app.get("/songs/:id",function(req,res) {
   });
 });
 
+// Maybe I can use this path to update the song's active status
+// since we will never actually overwrite the entire song's body
 app.put("/songs/:id",function(req,res) {
   var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(SONGS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err,doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to update song");
-    } else {
-      res.status(204).end();
-    }
+  db.collection(SONGS_COLLECTION).updateOne(
+    {_id: new ObjectID(req.params.id)},
+    {$set: updateDoc},
+    function(err,doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to update song");
+      } else {
+        res.status(204).end();
+      }
   });
 });
 
