@@ -196,3 +196,25 @@ app.delete("/songs/:id",function(req,res) {
     }
   });
 });
+
+
+/*
+* "/upvote/:id"
+*
+*/
+app.post("/upvote/:id",function(req,res) {
+  db.collection(SONGS_COLLECTION).updateOne(
+    {_id: new ObjectID(req.params.id)},
+    {$inc: {"score":1}},
+    function(err,doc) {
+        if (err) {
+          handleError(res, err.message, "Failed to upvote song");
+        } else {
+          res.status(204).end();
+        }
+  });
+});
+
+/*
+* "/downvote/:id"
+*/
