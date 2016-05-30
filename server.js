@@ -174,8 +174,8 @@ app.get("/songs/:id",function(req,res) {
   });
 });
 
-// Maybe I can use this path to update the song's active status
-// since we will never actually overwrite the entire song's body
+// This will update the fields specified.
+// Typically use it for Active Status
 app.put("/songs/:id",function(req,res) {
   var updateDoc = req.body;
   delete updateDoc._id;
