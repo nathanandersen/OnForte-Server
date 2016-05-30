@@ -114,7 +114,7 @@ app.delete("/playlists/:id",function(req,res) {
 
 // FETCH PLAYLIST BY PLAYLISTID
 app.get("/playlistid/:id",function(req,res) {
-  db.collection(PLAYLISTS).findOne({playlistId: req.params.id}).toArray(function(err,doc) {
+  db.collection(PLAYLISTS_COLLECTION).findOne({playlistId: req.params.id}).toArray(function(err,doc) {
     if (err) {
       handleError(res, err.message, "Failed to get songs for playlist");
     } else {
