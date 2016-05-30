@@ -125,7 +125,7 @@ app.get("/playlistid/:id",function(req,res) {
 
 // FETCHING PLAYLIST SONGS API ROUTES BELOW
 app.get("/playlistsongs/:id",function(req,res) {
-  db.collection(SONGS_COLLECTION).find({playlistId: req.params.id}).toArray(function(err,docs) {
+  db.collection(SONGS_COLLECTION).find({playlistId: req.params.id}, function(err,docs) {
     if (err) {
       handleError(res, err.message, "Failed to get songs for playlist");
     } else {
