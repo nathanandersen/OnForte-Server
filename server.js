@@ -218,3 +218,15 @@ app.post("/upvote/",function(req,res) {
 /*
 * "/downvote/:id"
 */
+app.post("/downvote/",function(req,res) {
+  db.collection(SONGS_COLLECTION).updateOne(
+    {_id: new ObjectID(req.body.id)},
+    {$inc: {"score":-1}},
+    function(err,doc) {
+        if (err) {
+          handleError(res, err.message, "Failed to downvote song");
+        } else {
+          res.status(204).end();
+        }
+  });
+});
