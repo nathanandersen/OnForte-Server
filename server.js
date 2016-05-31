@@ -108,7 +108,6 @@ app.get("/playlists/:id",function(req,res) {
     }
   });
 });
-
 app.put("/playlists/:id",function(req,res) {
   var updateDoc = req.body;
   delete updateDoc._id;
@@ -124,6 +123,22 @@ app.put("/playlists/:id",function(req,res) {
       }
   });
 });
+/*
+app.put("/playlists/:id",function(req,res) {
+  var updateDoc = req.body;
+  delete updateDoc._id;
+
+  db.collection(PLAYLISTS_COLLECTION).updateOne(
+    {_id: new ObjectID(req.params.id)},
+    {$set: updateDoc},
+    function(err,doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to update playlist");
+      } else {
+        res.status(204).end();
+      }
+  });
+});*/
 
 
 app.delete("/playlists/:id",function(req,res) {
