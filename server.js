@@ -58,6 +58,7 @@ app.post("/playlists",function(req,res) {
   var newPlaylist = req.body;
   newPlaylist.createDate = new Date();
 
+  console.log("made it here");
   if (req.body.name == null) {
     handleError(res, "Invalid user input","Did not provide a name",400);
   }
@@ -76,6 +77,7 @@ app.post("/playlists",function(req,res) {
   if (req.body.hostIsLoggedInToAppleMusic == null) {
     handleError(res, "Invalid user input", "Did not provide Apple Music login status",400);
   }
+  console.log("shabang");
 
   db.collection(PLAYLISTS_COLLECTION).insertOne(newPlaylist, function(err,doc) {
     if (err) {
