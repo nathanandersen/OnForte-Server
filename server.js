@@ -58,22 +58,22 @@ app.post("/playlists",function(req,res) {
   var newPlaylist = req.body;
   newPlaylist.createDate = new Date();
 
-  if (newPlaylist.name == null) {
+  if (req.body.name == null) {
     handleError(res, "Invalid user input","Did not provide a name",400);
   }
-  if (newPlaylist.playlistId == null) {
+  if (req.body.playlistId == null) {
     handleError(res, "Invalid user input", "Did not provide a playlist ID",400);
     }
-  if (newPlaylist.hostId == null) {
+  if (req.body.hostId == null) {
     handleError(res, "Invalid user input", "Did not provide a host ID",400);
   }
-  if (newPlaylist.hostIsLoggedInToSpotify == null) {
+  if (req.body.hostIsLoggedInToSpotify == null) {
     handleError(res, "Invalid user input", "Did not provide Spotify login status",400);
   }
-  if (newPlaylist.hostIsLoggedInToSoundcloud == null) {
+  if (req.body.hostIsLoggedInToSoundcloud == null) {
     handleError(res, "Invalid user input", "Did not provide Soundcloud login status",400);
   }
-  if (newPlaylist.hostIsLoggedInToAppleMusic == null) {
+  if (req.body.hostIsLoggedInToAppleMusic == null) {
     handleError(res, "Invalid user input", "Did not provide Apple Music login status",400);
   }
 
