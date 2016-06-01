@@ -29,6 +29,11 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/join/:playlistId', {
+        templateUrl: 'views/playlist.html',
+        controller: 'PlaylistCtrl',
+        controllerAs: 'playlist'
+      })
       .otherwise({
         redirectTo: '/'
       });
