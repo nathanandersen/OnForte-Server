@@ -6,10 +6,11 @@ angular.module("contactsApp", ['ngRoute'])
               controller: "HomeController"
             })
             .when ("/:playlistId", {
-              controller: "PlaylistController",
               templateUrl: "playlist.html",
-              resolve {
+              controller: "PlaylistController",
+              resolve: {
                 songs: function(Songs) {
+                  console.log("meh!");
                   return Songs.getSongsByPlaylist();
                 }
               }
