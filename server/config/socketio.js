@@ -21,6 +21,9 @@ function onConnect(socket) {
   require('../api/playlist/playlist.socket').register(socket);
   require('../api/thing/thing.socket').register(socket);
 
+  // added by me
+  require('../api/songsinplaylist/songsinplaylist.socket').register(socket);
+
 }
 
 export default function(socketio) {
