@@ -22,10 +22,8 @@ function handleError(res, statusCode) {
     res.status(statusCode).send(err);
   };
 }
-
-// Gets a list of SongsInPlaylist
 export function index(req, res) {
-  return Song.findByPlaylistId(req.params.playlistId).exec()
+  return Song.upvote(req.params.songId).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

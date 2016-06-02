@@ -23,9 +23,8 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of SongsInPlaylist
 export function index(req, res) {
-  return Song.findByPlaylistId(req.params.playlistId).exec()
+  return Song.downvote(req.params.songId).exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

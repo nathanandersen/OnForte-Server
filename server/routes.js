@@ -16,6 +16,9 @@ export default function(app) {
 
   app.use('/api/songsinplaylist',require('./api/songsinplaylist'));
 
+  app.use('/api/upvote',require('./api/upvote'));
+  app.use('/api/downvote',require('./api/downvote'));
+
 
   app.use('/auth', require('./auth').default);
 
